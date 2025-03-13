@@ -6,14 +6,48 @@ import { db } from "./data/db";
 function App() {
   const [data, setData] = useState(db);
   const [cart, setCart] = useState([]);
+  const [visible, setVisible] = useState(true);
 
   function addToCart(guitar) {
-    setCart((prevCart) => [...prevCart, guitar]);
+    const exists = cart.some((item) => item.id === guitar.id);
+
+    if (exists) {
+      const updateCart = cart.map((item) => {
+        if (item.id == guitar.id) {
+          return { ...item, cantidad: item.cantidad + 1 };
+        } else {
+          return item;
+        }
+      });
+      setCart(updateCart);
+    } else {
+      setCart((prevCart) => [...prevCart, { ...guitar, cantidad: 1 }]);
+    }
+
+    setVisible(false);
+  }
+
+  function removerItem(id) {
+    const filtro = cart.map((item) => {
+      if (item.id === id && item.cantidad > 1) {
+        console.log("Mayor de 1");
+        return {...item, cantidad: item.cantidad - 1}
+      } else {
+        console.log("Menor a 1");
+      }
+    });
+
+    setCart(filtro)
   }
 
   return (
     <>
-      <Header />
+      <Header
+        cart={cart}
+        visible={visible}
+        setVisible={setVisible}
+        removerItem={removerItem}
+      />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
