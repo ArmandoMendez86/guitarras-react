@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "./componentes/Header";
 import Guitar from "./componentes/Guitar";
 import { db } from "./data/db";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [data, setData] = useState(db);
@@ -25,19 +27,45 @@ function App() {
     }
 
     setVisible(false);
+    toast.success('Producto agregado!')
+  }
+
+  function incrementar(id) {
+    const filtro = cart.map((item) => {
+     
+      if (item.id === id) {
+        return { ...item, cantidad: item.cantidad + 1 };
+      }
+      return item;
+    });
+    setCart(filtro);
+  }
+  function decrementar(id) {
+    const filtro = cart.map((item) => {
+ 
+      if (item.id === id && item.cantidad > 1) {
+        return { ...item, cantidad: item.cantidad - 1 };
+      }
+      return item;
+    });
+    setCart(filtro);
   }
 
   function removerItem(id) {
-    const filtro = cart.map((item) => {
-      if (item.id === id && item.cantidad > 1) {
-        console.log("Mayor de 1");
-        return {...item, cantidad: item.cantidad - 1}
-      } else {
-        console.log("Menor a 1");
-      }
-    });
+    const filtro = cart
+      .map((item) => {
+        if (item.id === id && item.cantidad > 1) {
+          return { ...item, cantidad: item.cantidad - 1 };
+        } else if (item.id === id) {
+          return null;
+        }
 
-    setCart(filtro)
+        return item;
+      })
+      .filter((item) => item !== null);
+
+    setCart(filtro);
+    toast.error('Producto eliminado!')
   }
 
   return (
@@ -46,6 +74,8 @@ function App() {
         cart={cart}
         visible={visible}
         setVisible={setVisible}
+        incrementar={incrementar}
+        decrementar={decrementar}
         removerItem={removerItem}
       />
 
@@ -66,7 +96,9 @@ function App() {
           </p>
         </div>
       </footer>
+      <ToastContainer />
     </>
+
   );
 }
 

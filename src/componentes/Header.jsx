@@ -1,4 +1,4 @@
-function Header({ cart, visible, setVisible, removerItem }) {
+function Header({ cart, visible, setVisible, incrementar, decrementar, removerItem }) {
   const cartTotal = () =>
     cart.reduce((total, item) => {
       return total + item.price * item.cantidad;
@@ -67,11 +67,11 @@ function Header({ cart, visible, setVisible, removerItem }) {
                             <td>{item.name}</td>
                             <td className="fw-bold">${item.price}</td>
                             <td className="flex align-items-start gap-4">
-                              <button type="button" className="btn btn-dark">
+                              <button type="button" className="btn btn-dark" onClick={()=>decrementar(item.id)}>
                                 -
                               </button>
                               {item.cantidad}
-                              <button type="button" className="btn btn-dark">
+                              <button type="button" className="btn btn-dark" onClick={()=>incrementar(item.id)}>
                                 +
                               </button>
                             </td>
