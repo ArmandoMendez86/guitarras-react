@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./componentes/Header";
 import Guitar from "./componentes/Guitar";
 import { db } from "./data/db";
@@ -6,9 +6,21 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+
+
+  const initialCart = ()=>{
+    const localStorageCart = localStorage.getItem('cart')
+    return localStorageCart ? JSON.parse(localStorageCart) : []
+  }
+
   const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(initialCart);
   const [visible, setVisible] = useState(true);
+
+
+  useEffect(()=>{
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   function addToCart(guitar) {
     const exists = cart.some((item) => item.id === guitar.id);
@@ -40,6 +52,7 @@ function App() {
     });
     setCart(filtro);
   }
+
   function decrementar(id) {
     const filtro = cart.map((item) => {
  
@@ -68,6 +81,11 @@ function App() {
     toast.error('Producto eliminado!')
   }
 
+  function vaciarCarrito(){
+    setCart([])
+    setVisible(true)
+  }
+
   return (
     <>
       <Header
@@ -77,6 +95,7 @@ function App() {
         incrementar={incrementar}
         decrementar={decrementar}
         removerItem={removerItem}
+        vaciarCarrito={vaciarCarrito} 
       />
 
       <main className="container-xl mt-5">

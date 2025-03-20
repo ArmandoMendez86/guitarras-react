@@ -1,4 +1,12 @@
-function Header({ cart, visible, setVisible, incrementar, decrementar, removerItem }) {
+function Header({
+  cart,
+  visible,
+  setVisible,
+  incrementar,
+  decrementar,
+  removerItem,
+  vaciarCarrito,
+}) {
   const cartTotal = () =>
     cart.reduce((total, item) => {
       return total + item.price * item.cantidad;
@@ -8,7 +16,6 @@ function Header({ cart, visible, setVisible, incrementar, decrementar, removerIt
     if (e.target.classList.contains("img-fluid")) {
       setVisible(true);
     }
-
   }
 
   return (
@@ -67,11 +74,19 @@ function Header({ cart, visible, setVisible, incrementar, decrementar, removerIt
                             <td>{item.name}</td>
                             <td className="fw-bold">${item.price}</td>
                             <td className="flex align-items-start gap-4">
-                              <button type="button" className="btn btn-dark" onClick={()=>decrementar(item.id)}>
+                              <button
+                                type="button"
+                                className="btn btn-dark"
+                                onClick={() => decrementar(item.id)}
+                              >
                                 -
                               </button>
                               {item.cantidad}
-                              <button type="button" className="btn btn-dark" onClick={()=>incrementar(item.id)}>
+                              <button
+                                type="button"
+                                className="btn btn-dark"
+                                onClick={() => incrementar(item.id)}
+                              >
                                 +
                               </button>
                             </td>
@@ -96,7 +111,10 @@ function Header({ cart, visible, setVisible, incrementar, decrementar, removerIt
                   </div>
                 )}
 
-                <button className="btn btn-dark w-100 mt-3 p-2">
+                <button
+                  className="btn btn-dark w-100 mt-3 p-2"
+                  onClick={vaciarCarrito}
+                >
                   Vaciar Carrito
                 </button>
               </div>
