@@ -24,7 +24,7 @@ Este es un proyecto de carrito de compras permite agregar productos al carrito, 
    ```
 2. Instala las dependencias necesarias
    ```sh
-   npm run dev
+   npm install
    ```
 
 
