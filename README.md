@@ -6,6 +6,7 @@ Este es un proyecto de carrito de compras permite agregar productos al carrito, 
 - Agregar y eliminar productos del carrito
 - Diseño responsivo
 - Actualización dinámica del precio total
+- Uso de localStorage para persistencia de datos
 
 ## 🖥️ Tecnologías utilizadas
 - REACT JS
