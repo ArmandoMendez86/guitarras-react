@@ -1,12 +1,31 @@
-# React + Vite
+# 🛒 Carrito de Compras
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un proyecto de carrito de compras permite agregar productos al carrito, eliminar productos y calcular el total de la compra.
 
-Currently, two official plugins are available:
+## 🚀 Características
+- Agregar y eliminar productos del carrito
+- Diseño responsivo
+- Actualización dinámica del precio total
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🖥️ Tecnologías utilizadas
+- REACT JS
 
-## Expanding the ESLint configuration
+![image](https://github.com/user-attachments/assets/b292fb3c-59d2-4993-b351-850c415bfb6d)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+![image](https://github.com/user-attachments/assets/ebac4a96-7344-4d8d-9692-2d2264523ee1)
+
+
+
+## 📦 Instalación y ejecución
+1. Clona este repositorio:
+   ```sh
+   git clone https://github.com/ArmandoMendez86/guitarras-react.git
+   ```
+2. Instala las dependencias necesarias
+   ```sh
+   npm run dev
+   ```
+
+
+¡Gracias por visitar este proyecto! 🎉
