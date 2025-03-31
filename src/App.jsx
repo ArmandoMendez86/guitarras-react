@@ -1,90 +1,19 @@
-import { useEffect, useState } from "react";
 import Header from "./componentes/Header";
 import Guitar from "./componentes/Guitar";
-import { db } from "./data/db";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useCart } from "./hooks/useCart";
 
 function App() {
-
-
-  const initialCart = ()=>{
-    const localStorageCart = localStorage.getItem('cart')
-    return localStorageCart ? JSON.parse(localStorageCart) : []
-  }
-
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState(initialCart);
-  const [visible, setVisible] = useState(true);
-
-
-  useEffect(()=>{
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
-
-  function addToCart(guitar) {
-    const exists = cart.some((item) => item.id === guitar.id);
-
-    if (exists) {
-      const updateCart = cart.map((item) => {
-        if (item.id == guitar.id) {
-          return { ...item, cantidad: item.cantidad + 1 };
-        } else {
-          return item;
-        }
-      });
-      setCart(updateCart);
-    } else {
-      setCart((prevCart) => [...prevCart, { ...guitar, cantidad: 1 }]);
-    }
-
-    setVisible(false);
-    toast.success('Producto agregado!')
-  }
-
-  function incrementar(id) {
-    const filtro = cart.map((item) => {
-     
-      if (item.id === id) {
-        return { ...item, cantidad: item.cantidad + 1 };
-      }
-      return item;
-    });
-    setCart(filtro);
-  }
-
-  function decrementar(id) {
-    const filtro = cart.map((item) => {
- 
-      if (item.id === id && item.cantidad > 1) {
-        return { ...item, cantidad: item.cantidad - 1 };
-      }
-      return item;
-    });
-    setCart(filtro);
-  }
-
-  function removerItem(id) {
-    const filtro = cart
-      .map((item) => {
-        if (item.id === id && item.cantidad > 1) {
-          return { ...item, cantidad: item.cantidad - 1 };
-        } else if (item.id === id) {
-          return null;
-        }
-
-        return item;
-      })
-      .filter((item) => item !== null);
-
-    setCart(filtro);
-    toast.error('Producto eliminado!')
-  }
-
-  function vaciarCarrito(){
-    setCart([])
-    setVisible(true)
-  }
+  const {
+    data,
+    cart,
+    addToCart,
+    incrementar,
+    decrementar,
+    removerItem,
+    visible,
+    setVisible,
+    vaciarCarrito
+  } = useCart();
 
   return (
     <>
@@ -95,7 +24,7 @@ function App() {
         incrementar={incrementar}
         decrementar={decrementar}
         removerItem={removerItem}
-        vaciarCarrito={vaciarCarrito} 
+        vaciarCarrito={vaciarCarrito}
       />
 
       <main className="container-xl mt-5">
@@ -115,9 +44,7 @@ function App() {
           </p>
         </div>
       </footer>
-      <ToastContainer />
     </>
-
   );
 }
 
